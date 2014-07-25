@@ -12,12 +12,12 @@ namespace Drawille_Sharp
         {
             Console.OutputEncoding = Encoding.Unicode;
 
-            Canvas c = new Canvas(Console.BufferWidth, Console.BufferHeight);
-            for (int i = 0; i < 10; i++)
+            Canvas c = new Canvas(16, 16);
+            for (int x = 0; x < 16; x++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int y = 0; y < 16; y++)
                 {
-                    c.Set(i, j);
+                    if (x % 2 == 0 && y % 2 == 0) c.Set(x, y);
                 }
             }
             Console.Write(c.Frame());

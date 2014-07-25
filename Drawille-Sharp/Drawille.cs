@@ -17,7 +17,7 @@ namespace Drawille_Sharp
             {0x4, 0x20},
             {0x40,0x80}
         };
-        private Dictionary<int, int> chars;
+        private int[] chars;
         public int width;
         public int height;
 
@@ -31,33 +31,18 @@ namespace Drawille_Sharp
             {
                 throw new ArgumentException("Height must be multiple of 4");
             }
-            chars = new Dictionary<int, int>();
-            this.width = width;
-            this.height = height;
-            Clear();
+            chars = new int[width * height / 8];
         }
-
         public void Clear()
         {
-            chars.Clear();
-            for (int y = 0; y < height; y++)
+            for (int i = 0; i < chars.Length; i++)
             {
-                for (int x = 0; x < width; x++)
-                {
-                    int nx = (int)(x / 2);
-                    int ny = (int)(y / 4);
-                    int coord = nx + width / 2 * ny;
-                    if (!chars.ContainsKey(coord))
-                    {
-                        chars.Add(coord, 0);
-                    }
-                }
+                chars[i] = 0;
             }
         }
-
         public void Set(int x, int y)
         {
-            Tuple<int,int> data = GetMethodData(x,y);
+            Tuple<int, int> data = GetMethodData(x, y);
             _Set(data.Item1, data.Item2);
         }
 
@@ -65,10 +50,10 @@ namespace Drawille_Sharp
         {
             chars[coord] |= mask;
         }
-        
+
         public void UnSet(int x, int y)
         {
-            Tuple<int,int> data = GetMethodData(x,y);
+            Tuple<int, int> data = GetMethodData(x, y);
             _UnSet(data.Item1, data.Item2);
         }
         private void _UnSet(int coord, int mask)
@@ -98,7 +83,7 @@ namespace Drawille_Sharp
         public string Frame()
         {
             string result = string.Empty;
-            for (int i = 0, j = 0; i < chars.Count; i++, j++)
+            for (int i = 0, j = 0; i < chars.Length; i++, j++)
             {
                 if (j == this.width / 2)
                 {
