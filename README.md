@@ -1,4 +1,6 @@
 drawille-sharp
 ==============
 
-Port of asciimoo/drawille to C#.
+Port of [drawille] to C#.
+
+[drawille]: http://github.com/asciimoo/drawille
